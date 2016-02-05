@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <p>모임이름 : {{ moim_name}}</p>
+    {% csrf_token %}
+    <p>가입모임 회원</p>
+    {% if Manager == 'True' %}
+        {% for Moim_name in user_info %}
+            {% if Moim_name.manager == True %}
+                <li><a href="">관리자: {{ Moim_name.user_name }}</a></li>
+            {% else %}
+                <li><a href="">{{ Moim_name.user_name }}</a></li>
+            {% endif %}
+        {% empty %}
+        {% endfor %}
+
+    {% elif User == 'True' %}
+        {% for Moim_name in user_info %}
+            {% if Moim_name.manager == True %}
+                    <li>관리자: {{ Moim_name.user_name }}</li>
+            {% else %}
+                    <li>{{ Moim_name.user_name }}</li>
+            {% endif %}
+        {% empty %}
+        {% endfor %}
+    {% elif NotUser == 'True' %}
+             가입한 모임이 아닙니다
+    {% endif %}
+
+
+
+
+
+
+
+
+    {% comment %}
+                {% if Moim_name.manager == True %}
+                    <li>관리자: {{ Moim_name.user_name }}</li>
+                {% else %}
+                    <li>{{ Moim_name.user_name }}</li>
+                {% endif %}
+
+    <!-- {% comment %} 템플릿 태그는 템플릿의 블록 주석입니다. -->
+    <!-- 이 템플릿 g
+
+    그 안에 있는 모든 내용은 화면에 출력되지 앟습니다. -->
+
+    {% for field in form %}
+    <p>
+        {% if field.errors %}
+        <ul>
+            {% for error in field.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{field}}
+    </p>
+    {% endfor %}
+    {% endcomment %}
+
+
+{% endblock %}
